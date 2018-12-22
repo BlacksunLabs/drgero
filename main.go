@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var m *mq.Client
+var m = new(mq.Client)
 
 func eventPOST(c *gin.Context) {
 	event := new(event.Event)
@@ -38,13 +38,16 @@ func eventPOST(c *gin.Context) {
 	err = m.PublishJSONToFanoutExchange(eventBody, "events")
 	if err != nil {
 		c.JSON(500, gin.H{
-			"error": "Failed to publish event to events exchange",
+			"error": fmt.Sprintf("failed to publish event to events exchange: %v", err),
 		})
 	}
 }
 
 func main() {
-	m.Connect("guest:guest@localhost:5672")
+	err := m.Connect("amqp://guest:guest@localhost:5672")
+	if err != nil {
+		fmt.Printf("%v", err)
+	}
 
 	router := gin.Default()
 
