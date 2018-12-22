@@ -28,7 +28,12 @@ func eventPOST(c *gin.Context) {
 	event.Host = host
 	event.UserAgent = ua
 
-	m.PublishJSONToFanoutExchange(json.Marshal(event), "events")
+	err = m.PublishJSONToFanoutExchange(json.Marshal(event), "events")
+	if err != nil {
+		c.JSON(500, gin.H{
+			"error": "Failed to publish event to events exchange",
+		})
+	}
 }
 
 func main() {
