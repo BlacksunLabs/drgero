@@ -88,3 +88,40 @@ func (c *Client) NewTempQueue() (queueName string, err error) {
 
 	return q.Name, nil
 }
+
+// BindQueueToExchange binds a queue to an exchange
+func (c *Client) BindQueueToExchange(queueName string, exchangeName string) error {
+	if c.conn == nil {
+		return fmt.Errorf("cannot bind queue to exchange before connecting to RabbitMQ")
+	}
+
+	ch, err := c.conn.Channel()
+	defer ch.Close()
+
+	err = ch.QueueBind(
+		queueName,
+		"",
+		exchangeName,
+		false,
+		nil,
+	)
+	if err != nil {
+		return fmt.Errorf("failed to bind %s to exchange %s : %v", queueName, exchangeName, err)
+	}
+
+	return nil
+}
+
+// GetChannel gets a channel from RabbitMQ
+func (c *Client) GetChannel() (*amqp.Channel, error) {
+	if c.conn == nil {
+		return nil, fmt.Errorf("cannot get channel before connecting to RabbitMQ")
+	}
+
+	ch, err := c.conn.Channel()
+	if err != nil {
+		return nil, fmt.Errorf("failed to open channel: %v", err)
+	}
+
+	return ch, nil
+}
