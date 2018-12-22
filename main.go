@@ -44,7 +44,7 @@ func eventPOST(c *gin.Context) {
 }
 
 func main() {
-	m.Connect("admin:admin@localhost:5672")
+	m.Connect("guest:guest@localhost:5672")
 
 	router := gin.Default()
 
