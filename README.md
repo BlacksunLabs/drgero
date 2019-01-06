@@ -8,3 +8,6 @@ Event-driven assistant for Red Teams
 ## Producer Microservices
 - [drgero-feed-monitor - RSS/Atom feed monitor](https://github.com/n0ncetonic/drgero-feed-monitor)
 - [dg-hibp - Search HIBP for an email address](https://github.com/BlacksunLabs/dg-hibp)
+- [db-psbmon - 
+Periodically queries psbdmp.cc for newly added pastes](https://github.com/BlacksunLabs/dg-psbmon)
+
