@@ -1,5 +1,5 @@
 # Dr.Gero
-Event-driven assistant for Red Teams
+Event-driven assistant for Red Teams. Like IFTTT/Zapier for hackers.
 
 ## Consumer Microservices
 - [drgero_echo - PoC consumer example](https://github.com/n0ncetonic/drgero_echo)
